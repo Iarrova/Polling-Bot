@@ -6,7 +6,7 @@ from discord.ext import commands
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 
-bot = commands.Bot(command_prefix = '!')
+bot = commands.Bot(command_prefix = '!', help_command=None)
 
 # Permissions needed for the bot:
 # - View Channels
@@ -17,7 +17,7 @@ bot = commands.Bot(command_prefix = '!')
 
 @bot.event
 async def on_ready():
-    await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.playing, name='!help'))
+    await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.playing, name="!help"))
     print(f'{bot.user} has connected to Discord!')
 
 # Create Poll
@@ -51,7 +51,7 @@ async def poll(ctx, *, input):
         return
 
     # Checks wether poll is a Yes/No Question or a Multiple Choice Question
-    if len(options) == 2 and options[0].lower() == 'yes' and options[1].lower() == 'No':
+    if len(options) == 2 and options[0].lower() == 'yes' and options[1].lower() == 'no':
         reactions = ['✅', '❌']
     else:
         # Regional Indicators
@@ -83,7 +83,7 @@ async def help(ctx):
                     value='''The BOT has a unique command that allows you to generate a poll. Example usage: 
                                             !poll "Poll Title" "Option 1" "Option 2" ...
                                             This command allows a maximum of 20 options (because of Discord limitations).\n\n
-                                            Alternatively, if the only options given to the BOT are "Yes" and "No", it will generate a Yes/No Poll. Example sage:
+                                            Alternatively, if the only options given to the BOT are "Yes" and "No", it will generate a Yes/No Poll. Example usage:
                                             !poll "Poll Title" "Yes" "No"''',
                     inline=True
                     )
